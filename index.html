@@ -52,7 +52,13 @@
 
 			render: function()
 			{
-
+				$(this.el).html(this.template(this.model.toJSON));
+				this.setConten();
+				return this;
+			}
+			
+			setContent: function() {
+				
 			}
 		
 		});
