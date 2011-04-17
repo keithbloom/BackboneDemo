@@ -10,8 +10,53 @@
 
   <!-- CSS: implied media="all" -->
   <link rel="stylesheet" href="css/style.css?v=2">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> 
   <script src="underscore.js"></script>
   <script src="backbone.js"></script>
+
+	<script>
+
+		var Map = Backbone.model.Extend({
+			EMPTY: "Map of nowhere",
+
+			initialize: function() {
+				if(!this.get("name")) {
+					this.set({"name" : this.EMPTY});
+				}
+			},	
+			
+			
+		});
+
+		var MapList = new Backbone.Collection.extend({
+			model: Map,
+			
+			
+		});
+
+		var Maps = new MapList;
+		
+		
+		var template = _.template("hello: <%= name %>");
+	 	console.log(template({name: 'keith'}));
+
+		var bagItem = Backbone.view.extend({
+			
+			className: "bag-item",
+			
+			template: _.template($("#map-template").html()),
+			
+			initialize: function() {
+				_.bindAll(this, "render");
+			},
+
+			render: function()
+			{
+
+			}
+		
+		});
+	</script>
 </head>
 
 <body>
@@ -30,7 +75,11 @@
     <footer>
 
     </footer>
-  </div> <!--! end of #container -->
 
+
+  </div> <!--! end of #container -->
+	<script type="text/template" id="map-template">
+		<li><%= name %></li>
+	</script>
 </body>
 </html>
