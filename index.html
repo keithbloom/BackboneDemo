@@ -16,21 +16,21 @@
 
 	<script>
 
-		var Map = Backbone.model.Extend({
+		var Map = Backbone.Model.extend({
 			EMPTY: "Map of nowhere",
 
 			initialize: function() {
 				if(!this.get("name")) {
 					this.set({"name" : this.EMPTY});
 				}
-			},	
+			}	
 			
 			
 		});
 
 		var MapList = new Backbone.Collection.extend({
-			model: Map,
 			
+			model: Map,
 			
 		});
 
@@ -40,7 +40,7 @@
 		var template = _.template("hello: <%= name %>");
 	 	console.log(template({name: 'keith'}));
 
-		var bagItem = Backbone.view.extend({
+		var bagItem = Backbone.View.extend({
 			
 			className: "bag-item",
 			
@@ -55,7 +55,7 @@
 				$(this.el).html(this.template(this.model.toJSON));
 				this.setConten();
 				return this;
-			}
+			},
 			
 			setContent: function() {
 				
