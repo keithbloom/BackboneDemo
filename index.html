@@ -13,55 +13,86 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> 
   <script src="underscore.js"></script>
   <script src="backbone.js"></script>
+  <script src="backbone-localstorage.js"></script>
+  <script src="json2.js"></script>
 
 	<script>
+$(function() {
+		window.Product = Backbone.Model.extend({
 
-		var Map = Backbone.Model.extend({
-			EMPTY: "Map of nowhere",
-
-			initialize: function() {
-				if(!this.get("name")) {
-					this.set({"name" : this.EMPTY});
-				}
-			}	
-			
-			
-		});
-
-		var MapList = new Backbone.Collection.extend({
-			
-			model: Map,
-			
-		});
-
-		var Maps = new MapList;
-		
-		
-		var template = _.template("hello: <%= name %>");
-	 	console.log(template({name: 'keith'}));
-
-		var bagItem = Backbone.View.extend({
-			
-			className: "bag-item",
-			
-			template: _.template($("#map-template").html()),
-			
-			initialize: function() {
-				_.bindAll(this, "render");
-			},
-
-			render: function()
-			{
-				$(this.el).html(this.template(this.model.toJSON));
-				this.setConten();
-				return this;
-			},
-			
-			setContent: function() {
+			constructor: function Product() {
+				Backbone.Model.prototype.constructor.apply(this, arguments);
 				
-			}
+				if(!this.collection) {
+					this.collection = Products;
+				}
+			},
 		
+			defaults: {
+			  title: "empty item..",
+			  price: 0
+			}
+		  });
+
+		window.ProductList = Backbone.Collection.extend({
+			
+			model: Product,
+			
+			localStorage: new Store("products"),
+			
+			constructor: function ProductList() {
+				Backbone.Collection.prototype.constructor.apply(this, arguments);
+			}
+			
 		});
+	
+
+		
+		window.ProductView = Backbone.View.extend({
+			
+			template: _.template("<li><%= title %></li>"),
+			
+			constructor : function ProductView() {
+				Backbone.View.prototype.constructor.apply(this, arguments);
+			},
+			
+			initialize: function() {
+				var view = this;
+				console.log(this.collection);
+				this.collection.bind('add', function(product, collect){
+					view.add(product);
+				});
+			},
+			
+			render: function() {
+				console.log("I am render");
+				this.el.innerHTML = '';
+				this.collection.each(function (product) {
+					console.log(product.cid);
+					this.add(product);
+				}, this);
+			  return this.el;
+			},
+			
+			add: function(product) {
+				console.log("I am add in the view");
+				this.el.append(this.template({title: product.get("title")}));
+				return this;
+			}
+			
+			
+		});
+		
+		window.Products = new ProductList(JSON.stringify({title: "T", price: 0}));
+		
+		var list = new ProductView({
+			el: $("#product-list"),
+			collection: Products
+		});
+		
+		list.render();
+	console.log($("#product-list"));
+	});
 	</script>
 </head>
 
@@ -76,7 +107,7 @@
 		<input type="text" id="yourName" />
 		<button type="button">Add name</button>
 	</form>
-	<ul id="names"></ul>
+	<ul id="product-list" class="content"></ul>
     </div>
     <footer>
 
@@ -84,8 +115,9 @@
 
 
   </div> <!--! end of #container -->
-	<script type="text/template" id="map-template">
-		<li><%= name %></li>
+	<script type="text/template" id="product-template">
+		<span class="prod-name"></span>
+		<span class="prod-price"></span>
 	</script>
 </body>
 </html>
