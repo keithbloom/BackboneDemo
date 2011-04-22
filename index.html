@@ -10,90 +10,13 @@
 
   <!-- CSS: implied media="all" -->
   <link rel="stylesheet" href="css/style.css?v=2">
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> 
+  <script src="jquery.min.js"></script> 
   <script src="underscore.js"></script>
   <script src="backbone.js"></script>
   <script src="backbone-localstorage.js"></script>
   <script src="json2.js"></script>
 
-	<script>
-$(function() {
-		window.Product = Backbone.Model.extend({
-
-			constructor: function Product() {
-				Backbone.Model.prototype.constructor.apply(this, arguments);
-				
-				if(!this.collection) {
-					this.collection = Products;
-				}
-			},
-		
-			defaults: {
-			  title: "empty item..",
-			  price: 0
-			}
-		  });
-
-		window.ProductList = Backbone.Collection.extend({
-			
-			model: Product,
-			
-			localStorage: new Store("products"),
-			
-			constructor: function ProductList() {
-				Backbone.Collection.prototype.constructor.apply(this, arguments);
-			}
-			
-		});
-	
-
-		
-		window.ProductView = Backbone.View.extend({
-			
-			template: _.template("<li><%= title %></li>"),
-			
-			constructor : function ProductView() {
-				Backbone.View.prototype.constructor.apply(this, arguments);
-			},
-			
-			initialize: function() {
-				var view = this;
-				console.log(this.collection);
-				this.collection.bind('add', function(product, collect){
-					view.add(product);
-				});
-			},
-			
-			render: function() {
-				console.log("I am render");
-				this.el.innerHTML = '';
-				this.collection.each(function (product) {
-					console.log(product.cid);
-					this.add(product);
-				}, this);
-			  return this.el;
-			},
-			
-			add: function(product) {
-				console.log("I am add in the view");
-				this.el.append(this.template({title: product.get("title")}));
-				return this;
-			}
-			
-			
-		});
-		
-		window.Products = new ProductList(JSON.stringify({title: "T", price: 0}));
-		
-		var list = new ProductView({
-			el: $("#product-list"),
-			collection: Products
-		});
-		
-		list.render();
-	console.log($("#product-list"));
-	});
-	</script>
+  <script src="cart.js"></script>
 </head>
 
 <body>
@@ -116,8 +39,12 @@ $(function() {
 
   </div> <!--! end of #container -->
 	<script type="text/template" id="product-template">
-		<span class="prod-name"></span>
-		<span class="prod-price"></span>
+	<li>	
+		<span class="prod-name"><%= title %></span>
+		<span class="prod-price"><%= price %></span>
+		<span class="prod-cid">Cid: <%= cid %></span>
+		<span class="prod-id">Id: <%= id %></span>
+	</li>
 	</script>
 </body>
 </html>
