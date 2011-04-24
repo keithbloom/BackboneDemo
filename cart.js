@@ -61,6 +61,8 @@ $(function() {
 				this.el.append(this.template({
 					title: product.get("title"),
 					price: product.get("price"),
+          img: "img/bag1.jpg",
+          desc: "A widget",
 					cid: product.id,
 					id: product.cid
 					}));
