@@ -62,7 +62,7 @@ $(function() {
 					title: product.get("title"),
 					price: product.get("price"),
           img: "img/bag1.jpg",
-          desc: "A widget",
+          desc: "A bag for putting upon your back.",
 					cid: product.id,
 					id: product.cid
 					}));
@@ -72,7 +72,7 @@ $(function() {
 			
 		});
 		
-		window.Products = new ProductList({title: "T", price: 0});
+		window.Products = new ProductList({title: "Back pack", price: 10.0});
 		
 		var list = new ProductView({
 			el: $("#product-list"),

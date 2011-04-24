@@ -1,13 +1,11 @@
-ul#product-list li {
-  list-style-type: none;
-  display: block;
-  border: 1px solid blue;
+ul#product-list {
+  width: 400px;
 }
 
-.prod-pic {
-  float: left;
+ul#product-list li {
+  list-style-type: none;
 }
 
 .prod-detail {
- float: right;
+  border-left: 1px solid #eee;
  }

@@ -9,7 +9,11 @@
   <meta name="author" content="">
 
   <!-- CSS: implied media="all" -->
-  <link rel="stylesheet" href="css/style.css?v=2" />
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/text.css" />
+  <link rel="stylesheet" href="css/960.css" />
+
+
   <link rel="stylesheet" href="css/cart.css" />
   <script src="jquery.min.js"></script> 
   <script src="underscore.js"></script>
@@ -22,32 +26,30 @@
 
 <body>
 
-  <div id="container">
-    <header>
+  <div id="container_12">
 
-    </header>
-    <div id="main" role="main">
+<div id="main" role="main">
 	<form name="myFrom" id="myForm">
-		<input type="text" id="yourName" />
-		<button type="button">Add name</button>
-	</form>
-	<ul id="product-list" class="content"></ul>
-    </div>
-    <footer>
+    <label>Title: </label><input type="text" id="yourName" />
 
-    </footer>
+		<button type="button">Add name</button>
+  </form>
+</div>
+	<ul id="product-list" class="content grid_12"></ul>
+    </div>
+
 
 
   </div> <!--! end of #container -->
 	<script type="text/template" id="product-template">
     <li>
-    <div class="prod-pic">
+    <div class="prod-pic grid_4">
       <img src="<%= img %>" />
     </div>
-    <div class="prod-detail>
+    <div class="prod-detail grid_8">
       <span class="prod-name"><%= title %></span><br />
       <span class="prod-desc"><%= desc %></span><br />
-      <span class="prod-price"><%= price %></span><br />
+      <span class="prod-price">&pound;<%= price %></span><br />
 		<span class="prod-cid">Cid: <%= cid %></span> - 
 		<span class="prod-id">Id: <%= id %></span>
 	</li>
