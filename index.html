@@ -29,10 +29,10 @@
   <div id="container_12">
 
 <div id="main" role="main">
-	<form name="myFrom" id="myForm">
-    <label>Title: </label><input type="text" id="yourName" />
+	<form id="shopping-form">
+   <label for="list-item">Buy: </label><input type="text" id="list-item" />
 
-		<button type="button">Add name</button>
+   <button type="submit">Add to list</button>
   </form>
 </div>
 	<ul id="product-list" class="content grid_12"></ul>
@@ -42,17 +42,12 @@
 
   </div> <!--! end of #container -->
 	<script type="text/template" id="product-template">
-    <li>
-    <div class="prod-pic grid_4">
-      <img src="<%= img %>" />
-    </div>
+    <li dataid="<%= Id || 0 %>">
     <div class="prod-detail grid_8">
-      <span class="prod-name"><%= title %></span><br />
-      <span class="prod-desc"><%= desc %></span><br />
-      <span class="prod-price">&pound;<%= price %></span><br />
-		<span class="prod-cid">Cid: <%= cid %></span> - 
-		<span class="prod-id">Id: <%= id %></span>
-	</li>
+      <span class="prod-name"><%= title %></span>
+      <button type="button" class="done">Done</done>
+   </div>
+ 	</li>
 	</script>
 </body>
 </html>

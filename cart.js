@@ -60,17 +60,45 @@ $(function() {
 				console.log("I am add in the view");
 				this.el.append(this.template({
 					title: product.get("title"),
-					price: product.get("price"),
-          img: "img/bag1.jpg",
-          desc: "A bag for putting upon your back.",
-					cid: product.id,
-					id: product.cid
+					Id: product.id
 					}));
 				return this;
 			}
 			
 			
 		});
+
+    window.ProductForm = Backbone.View.extend({
+
+      events : {
+        'submit': 'onsubmit'
+      },
+
+      constructor: function ProductForm() {
+        Backbone.View.prototype.constructor.apply(this, arguments);
+        console.log(this.$('input'));
+      },
+
+      onsubmit: function(event) {
+        var task = new window.Product({}),
+            input = this.$('input');
+
+        console.log(input.val());
+        console.log(event);
+
+        task.save({
+          title: input.val()
+        });
+
+        input.val('');
+
+        if (event) {
+          event.preventDefault();
+        }
+      }
+
+
+    });
 		
 		window.Products = new ProductList({title: "Back pack", price: 10.0});
 		
@@ -80,5 +108,13 @@ $(function() {
 		});
 		
 		list.render();
-	console.log($("#product-template").html());
+
+    var form = new ProductForm({
+      el: document.getElementById("shopping-form")
+    });
+
+    form.bind('create', function (product) {
+      window.Products.add(product);
+    });
+    // console.log($("#product-template").html());
 	});
