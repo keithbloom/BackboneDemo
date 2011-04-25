@@ -9,83 +9,50 @@
   <meta name="author" content="">
 
   <!-- CSS: implied media="all" -->
-  <link rel="stylesheet" href="css/style.css?v=2">
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> 
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/text.css" />
+  <link rel="stylesheet" href="css/960.css" />
+
+
+  <link rel="stylesheet" href="css/cart.css" />
+  <script src="jquery.min.js"></script> 
   <script src="underscore.js"></script>
   <script src="backbone.js"></script>
+  <script src="backbone-localstorage.js"></script>
+  <script src="json2.js"></script>
 
-	<script>
-
-		var Map = Backbone.model.Extend({
-			EMPTY: "Map of nowhere",
-
-			initialize: function() {
-				if(!this.get("name")) {
-					this.set({"name" : this.EMPTY});
-				}
-			},	
-			
-			
-		});
-
-		var MapList = new Backbone.Collection.extend({
-			model: Map,
-			
-			
-		});
-
-		var Maps = new MapList;
-		
-		
-		var template = _.template("hello: <%= name %>");
-	 	console.log(template({name: 'keith'}));
-
-		var bagItem = Backbone.view.extend({
-			
-			className: "bag-item",
-			
-			template: _.template($("#map-template").html()),
-			
-			initialize: function() {
-				_.bindAll(this, "render");
-			},
-
-			render: function()
-			{
-				$(this.el).html(this.template(this.model.toJSON));
-				this.setConten();
-				return this;
-			}
-			
-			setContent: function() {
-				
-			}
-		
-		});
-	</script>
+  <script src="cart.js"></script>
 </head>
 
 <body>
 
-  <div id="container">
-    <header>
+  <div id="container_12">
 
-    </header>
-    <div id="main" role="main">
+<div id="main" role="main">
 	<form name="myFrom" id="myForm">
-		<input type="text" id="yourName" />
-		<button type="button">Add name</button>
-	</form>
-	<ul id="names"></ul>
-    </div>
-    <footer>
+    <label>Title: </label><input type="text" id="yourName" />
 
-    </footer>
+		<button type="button">Add name</button>
+  </form>
+</div>
+	<ul id="product-list" class="content grid_12"></ul>
+    </div>
+
 
 
   </div> <!--! end of #container -->
-	<script type="text/template" id="map-template">
-		<li><%= name %></li>
+	<script type="text/template" id="product-template">
+    <li>
+    <div class="prod-pic grid_4">
+      <img src="<%= img %>" />
+    </div>
+    <div class="prod-detail grid_8">
+      <span class="prod-name"><%= title %></span><br />
+      <span class="prod-desc"><%= desc %></span><br />
+      <span class="prod-price">&pound;<%= price %></span><br />
+		<span class="prod-cid">Cid: <%= cid %></span> - 
+		<span class="prod-id">Id: <%= id %></span>
+	</li>
 	</script>
 </body>
 </html>

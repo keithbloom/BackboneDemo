@@ -1,0 +1,11 @@
+ul#product-list {
+  width: 400px;
+}
+
+ul#product-list li {
+  list-style-type: none;
+}
+
+.prod-detail {
+  border-left: 1px solid #eee;
+ }
