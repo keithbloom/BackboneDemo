@@ -16,10 +16,10 @@ $(function() {
 		  });
 
 		window.ProductList = Backbone.Collection.extend({
-			
+		
+      url: 'list/',
+
 			model: Product,
-			
-			localStorage: new Store("products"),
 			
 			constructor: function ProductList() {
 				Backbone.Collection.prototype.constructor.apply(this, arguments);
@@ -91,7 +91,7 @@ $(function() {
         });
 
         input.val('');
-
+        this.trigger('create', task, this);
         if (event) {
           event.preventDefault();
         }
