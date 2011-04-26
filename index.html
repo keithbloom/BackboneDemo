@@ -15,12 +15,12 @@
 
 
   <link rel="stylesheet" href="css/cart.css" />
-  <script src="jquery.min.js"></script> 
-  <script src="underscore.js"></script>
-  <script src="backbone.js"></script>
-  <script src="json2.js"></script>
+  <script src="javascript/jquery.min.js"></script> 
+  <script src="javascript/underscore.js"></script>
+  <script src="javascript/backbone.js"></script>
+  <script src="javascript/json2.js"></script>
 
-  <script src="cart.js"></script>
+  <script src="javascript/cart.js"></script>
 </head>
 
 <body>
@@ -42,9 +42,9 @@
   </div> <!--! end of #container -->
 	<script type="text/template" id="product-template">
     <li dataid="<%= Id || 0 %>">
-    <div class="prod-detail grid_8">
+    <div class="prod-detail">
       <span class="prod-name"><%= title %></span>
-      <button type="button" class="done">Done</done>
+      <button type="button" class="done">Done</button>
    </div>
  	</li>
 	</script>

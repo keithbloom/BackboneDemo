@@ -4,22 +4,26 @@ var sys = require("sys"),
     path = require("path"),
     fs = require("fs");
 
+var shopping = [];
+var maxId = 0;
+
 http.createServer(function (req, res) {
   var uri = url.parse(req.url).pathname;
 
   if(uri.indexOf('list/') != -1) {
-    res.writeHead(200);
     switch (req.method) {
       case "POST":
         post_handler(req, function(req_data) {
-          res.write(
-            'Data ' + sys.inspect(req_data)
-            );
-          console.log("Handled" + req_data);
+          res.writeHead(200, {"Content-Type" : "application/json"});
+          var new_item = JSON.parse(req_data);
+          new_item.id = maxId;
+          maxId = shopping.push(new_item);
+          res.write(JSON.stringify(new_item));
+          console.log("Handled" + JSON.stringify(new_item));
+          res.end();
         });
         break;
     }
-    res.end();
     return;
   }
 
@@ -65,4 +69,12 @@ var post_handler = function(request, callback) {
       callback(_CONTENT);
     });
   }
+};
+
+var map_item = function(input, id) {
+  var item = {};
+  item.title = input.title;
+  item.price = input.price;
+  item.id = id;
+  return item;
 };
