@@ -25,27 +25,26 @@
 
 <body>
 
-  <div id="container_12">
+	<div id="container_12">
 
-<div id="main" role="main">
-	<form id="shopping-form" action="javascript::return false">
-   <label for="list-item">Buy: </label><input type="text" id="list-item" />
+		<div id="main" role="main">
+			<form id="shopping-form" action="javascript::return false">
+			<label for="list-item">Buy: </label><input type="text" id="list-item" />
+			<button type="submit">Add to list</button>
+			</form>
+		</div>
 
-   <button type="submit">Add to list</button>
-  </form>
-</div>
-	<ul id="product-list" class="content grid_12"></ul>
-    </div>
+		<ul id="product-list" class="content grid_12"></ul>
+    
+	</div>
 
-
-
-  </div> <!--! end of #container -->
 	<script type="text/template" id="product-template">
-    <li dataid="<%= Id || 0 %>">
-    <div class="prod-detail">
-      <span class="prod-name"><%= title %></span>
-      <button type="button" class="done">Done</button>
-   </div>
+    <li data-id="<%= Id || 0 %>">
+		<div class="prod-detail">
+			<span class="prod-name grid_8"><%= title %></span>
+		    <button type="button" class="bought grid_4">Bought it</button>
+		</div>
+		<div class="clear"></div>
  	</li>
 	</script>
 </body>

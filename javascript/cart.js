@@ -31,7 +31,10 @@ $(function() {
 		
 		window.ProductView = Backbone.View.extend({
 			
-		//	template: _.template("<li><%= title %></li>"),
+			events : {
+				'click .bought' : 'onbought'
+			},
+
 			template: _.template($("#product-template").html()),
 			
 			constructor : function ProductView() {
@@ -40,8 +43,7 @@ $(function() {
 			
 			initialize: function() {
 				var view = this;
-				console.log(this.collection);
-				this.collection.bind('add', function(product, collect){
+				this.collection.bind('add', function(product, collection){
 					view.add(product);
 				});
 			},
@@ -63,6 +65,18 @@ $(function() {
 					Id: product.cid
 					}));
 				return this;
+			},
+
+			onbought: function(event){
+				var parent = event.target.parentNode.parentNode,
+					product = this.collection.getByCid(parent.getAttribute('data-id'));
+				console.log(parent.getAttribute('data-id'));
+				if(product) {
+					product.save({state : 'Done'});
+					this.render();
+				}
+				event.preventDefault();
+
 			}
 			
 			
@@ -76,7 +90,6 @@ $(function() {
 
       constructor: function ProductForm() {
         Backbone.View.prototype.constructor.apply(this, arguments);
-        console.log(this.$('input'));
       },
 
       onsubmit: function(event) {

@@ -7,6 +7,11 @@ var sys = require("sys"),
 var shopping = [];
 var maxId = 0;
 
+var contentType = [];
+contentType['js'] = 'application/x-javascript';
+contentType['html'] = 'text/html';
+contentType['css'] = 'text/css';
+
 http.createServer(function (req, res) {
   var uri = url.parse(req.url).pathname;
 
@@ -30,6 +35,7 @@ http.createServer(function (req, res) {
 // If request is not for the store, return the files.
 
 	var filename = path.join(process.cwd(), uri);
+	console.log(get_content_type(filename));
 	path.exists(filename, function(exists) {
 		if(!exists) {
 			res.writeHead(404, {"Content-Type": "text/plain"});
@@ -45,7 +51,7 @@ http.createServer(function (req, res) {
 				res.end();
 			}
 
-			res.writeHead(200);
+			res.writeHead(200, {"Content-Type" : get_content_type(filename)});
 			res.write(file, "binary");
 			res.end();
 		});
@@ -71,10 +77,8 @@ var post_handler = function(request, callback) {
   }
 };
 
-var map_item = function(input, id) {
-  var item = {};
-  item.title = input.title;
-  item.price = input.price;
-  item.id = id;
-  return item;
+var get_content_type = function (filename) {
+ var nameArray = filename.split('.');
+ console.log(nameArray.length);
+ return  contentType[nameArray[nameArray.length - 1]] || "text/plain";
 };

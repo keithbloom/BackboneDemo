@@ -1,9 +1,10 @@
 ul#product-list {
-  width: 400px;
+//  width: 400px;
 }
 
 ul#product-list li {
   list-style-type: none;
+  display: block;
 }
 
 .prod-detail {
