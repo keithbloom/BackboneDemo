@@ -49,13 +49,15 @@ $(function() {
 			},
 			
 			render: function() {
-				console.log("I am render");
+        $(this.el).html(this.template(this.collection.toJSON()));
+        return this.el;
+		/*		console.log(this.el);
 				this.el.innerHTML = '';
 				this.collection.each(function (product) {
-					console.log(product.cid);
-					this.add(product);
+					console.log(this);
+          this.add(product);
 				}, this);
-			  return this.el;
+			  return this.el;*/
 			},
 			
 			add: function(product) {
@@ -113,7 +115,7 @@ $(function() {
 
     });
 		
-		window.Products = new ProductList({title: "Back pack", price: 10.0});
+		window.Products = new ProductList();
 		
 		var list = new ProductView({
 			el: $("#product-list"),

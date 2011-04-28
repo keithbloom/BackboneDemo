@@ -28,6 +28,9 @@ http.createServer(function (req, res) {
           res.end();
         });
         break;
+      case "PUT":
+        console.log(req.url.split('/'));
+        break;
     }
     return;
   }
