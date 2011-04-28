@@ -26,13 +26,18 @@
 <body>
 
 	<div id="container_12">
-
-		<div id="main" role="main">
+		<h1>Shopping list</h1>
+		<div id="main" role="main" class="grid_4">
 			<form id="shopping-form" action="javascript::return false">
-			<label for="list-item">Buy: </label><input type="text" id="list-item" />
-			<button type="submit">Add to list</button>
+				<h3><label for="list-item">Add something to buy: </label></h3>
+				<p><input type="text" size="30" id="list-item" /></p>
+				
+				<div class="shopping-form-control">
+					<button type="submit">Add to list</button>
+				</div>
 			</form>
 		</div>
+		<div class="clear"></div>
 
 		<ul id="product-list" class="content grid_12"></ul>
     
