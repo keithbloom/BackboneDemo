@@ -10,13 +10,19 @@ ul#product-list {
 ul#product-list li {
   list-style-type: none;
   display: block;
+  margin: 0;
 }
 
 #main {
 	border: 2px solid #aaa;
+	padding: 5px;
 }
 
-form#shopping-form h3 {
+h2 {
+	font-size: 13px;
+}
+
+h3 {
 	font-size: 12px;
 	margin: 0px;
 }
@@ -32,4 +38,5 @@ form#shopping-form p{
 .shopping-form-control {
 	border-top: 1px solid #ccc;
 	margin-top: 10px;
+	padding-top: 5px;
 }
