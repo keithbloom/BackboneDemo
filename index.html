@@ -60,8 +60,9 @@
 	<script type="text/template" id="product-template">
     <li data-id="<%= Id || 0 %>">
 		<div class="prod-detail">
-			<span class="prod-name grid_4"><%= title %></span>
-		    <button type="button" class="bought grid_2">Bought it</button>
+      <span class="prod-name grid_4"><%= title %></span>
+      <span class="prod-state grid_2"><%= state %></span>
+		  <button type="button" class="bought grid_2">Bought it</button>
 		</div>
 		<div class="clear"></div>
  	</li>

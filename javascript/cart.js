@@ -11,7 +11,8 @@ $(function() {
 		
 			defaults: {
 			  title: "empty item..",
-			  price: 0
+			  price: 0,
+        state: "To buy"
 			}
 		  });
 
@@ -35,6 +36,9 @@ $(function() {
 				'click .bought' : 'onbought'
 			},
 
+      class: 'content',
+      tagName: 'ul',
+      
 			template: _.template($("#product-template").html()),
 			
 			constructor : function ProductView() {
@@ -49,22 +53,22 @@ $(function() {
 			},
 			
 			render: function() {
-        $(this.el).html(this.template(this.collection.toJSON()));
-        return this.el;
-		/*		console.log(this.el);
+        console.log(this.el.innerHTML);
 				this.el.innerHTML = '';
+        $("#product-list").children().remove();
 				this.collection.each(function (product) {
 					console.log(this);
           this.add(product);
 				}, this);
-			  return this.el;*/
+			  return this.el;
 			},
 			
 			add: function(product) {
 				console.log("I am add in the view");
 				this.el.append(this.template({
 					title: product.get("title"),
-					Id: product.cid
+					Id: product.cid,
+          state: product.get("state")
 					}));
 				return this;
 			},
@@ -95,11 +99,9 @@ $(function() {
       },
 
       onsubmit: function(event) {
-        var task = new window.Product({}),
+        var task = new window.Product,
             input = this.$('input');
 
-        console.log(input.val());
-        console.log(event);
 
         task.save({
           title: input.val()
@@ -114,7 +116,7 @@ $(function() {
 
 
     });
-		
+		$(function () {
 		window.Products = new ProductList();
 		
 		var list = new ProductView({
@@ -132,4 +134,5 @@ $(function() {
       window.Products.add(product);
     });
     // console.log($("#product-template").html());
+    });
 	});

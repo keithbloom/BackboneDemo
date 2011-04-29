@@ -7,10 +7,6 @@ var sys = require("sys"),
 var shopping = [];
 var maxId = 0;
 
-var contentType = [];
-contentType['js'] = 'application/x-javascript';
-contentType['html'] = 'text/html';
-contentType['css'] = 'text/css';
 
 http.createServer(function (req, res) {
   var uri = url.parse(req.url).pathname;
@@ -24,12 +20,12 @@ http.createServer(function (req, res) {
           new_item.id = maxId;
           maxId = shopping.push(new_item);
           res.write(JSON.stringify(new_item));
-          console.log("Handled" + JSON.stringify(new_item));
+          //  console.log("Handled" + JSON.stringify(new_item));
           res.end();
         });
         break;
       case "PUT":
-        console.log(req.url.split('/'));
+        //  console.log(req.url.split('/'));
         break;
     }
     return;
@@ -38,7 +34,7 @@ http.createServer(function (req, res) {
 // If request is not for the store, return the files.
 
 	var filename = path.join(process.cwd(), uri);
-	console.log(get_content_type(filename));
+	//  console.log(get_content_type(filename));
 	path.exists(filename, function(exists) {
 		if(!exists) {
 			res.writeHead(404, {"Content-Type": "text/plain"});
@@ -65,12 +61,12 @@ sys.puts("Server running at http://localhost:8080/");
 
 var post_handler = function(request, callback) {
 
-  console.log('post handler');
+  //  console.log('post handler');
   var _CONTENT = '';
 
   if(request.method == 'POST') {
     request.addListener('data', function(chunk) {
-      console.log("Chunking");
+      //  console.log("Chunking");
       _CONTENT += chunk;
     });
 
@@ -81,7 +77,12 @@ var post_handler = function(request, callback) {
 };
 
 var get_content_type = function (filename) {
- var nameArray = filename.split('.');
- console.log(nameArray.length);
- return  contentType[nameArray[nameArray.length - 1]] || "text/plain";
+  
+  var contentType = [];
+  var nameArray = filename.split('.');
+  contentType['js'] = 'application/x-javascript';
+  contentType['html'] = 'text/html';
+  contentType['css'] = 'text/css';
+ //  console.log(nameArray.length);
+  return  contentType[nameArray[nameArray.length - 1]] || "text/plain";
 };
