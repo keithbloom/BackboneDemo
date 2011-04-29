@@ -7,6 +7,10 @@ var sys = require("sys"),
 var shopping = [];
 var maxId = 0;
 
+var get_id = function (url) {
+  var parts = url.split('/');
+  return parts[parts.length-1];
+};
 
 http.createServer(function (req, res) {
   var uri = url.parse(req.url).pathname;
@@ -27,6 +31,10 @@ http.createServer(function (req, res) {
       case "PUT":
         //  console.log(req.url.split('/'));
         break;
+      case "GET":
+        res.writeHead(200, {"Content-Type" : "application/json"});
+        res.write(JSON.stringify(shopping[get_id(url) - 1]));
+        res.end();
     }
     return;
   }
