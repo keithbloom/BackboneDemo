@@ -44,7 +44,8 @@
 				</div>
 			</form>
 		</div>
-		<div class="grid_2">&nbsp;</div>
+    <div class="grid_2" id="product-count">
+    </div>
 		<div class="clear"></div>
 
 		<div class="grid_2">&nbsp;</div>
@@ -66,6 +67,11 @@
 		</div>
 		<div class="clear"></div>
  	</li>
-	</script>
+  </script>
+
+  <script type="text/template" id="product-count-template">
+      <h3>I have <%= total %> items to buy</h3>
+  </script>
+
 </body>
 </html>

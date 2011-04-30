@@ -5,12 +5,29 @@ var sys = require("sys"),
     fs = require("fs");
 
 var shopping = [];
-var maxId = 0;
+var maxId = function () {
+ return shopping.length + 1; 
+};
 
 var get_id = function (url) {
   var parts = url.split('/');
-  return parts[parts.length-1];
+  if(parts[parts.length - 1] === '/') {
+    return -1;
+  }
+  return parts[parts.length-1] - 1;
 };
+
+var get_item = function (req, res) {
+        res.writeHead(200, {"Content-Type" : "application/json"});
+        var Id = get_id(req.url);
+        if (Id === -1) {
+          res.write(JSON.stringify(shopping));
+        }
+        else {
+          res.write(JSON.stringify(shopping[Id]));
+        }
+        res.end();
+}
 
 http.createServer(function (req, res) {
   var uri = url.parse(req.url).pathname;
@@ -21,19 +38,32 @@ http.createServer(function (req, res) {
         post_handler(req, function(req_data) {
           res.writeHead(200, {"Content-Type" : "application/json"});
           var new_item = JSON.parse(req_data);
-          new_item.id = maxId;
-          maxId = shopping.push(new_item);
+          new_item.id = maxId();
+          console.log(new_item);
+      
+          shopping.push(new_item);
           res.write(JSON.stringify(new_item));
-          //  console.log("Handled" + JSON.stringify(new_item));
           res.end();
         });
         break;
       case "PUT":
-        //  console.log(req.url.split('/'));
+        post_handler(req, function(req_data) {
+          res.writeHead(200, {"Content-Type" : "application/json"});
+          var updated_item = JSON.parse(req_data);
+          console.log(updated_item);
+          //shopping[updated_item.id] = updated_item;
+          shopping.splice(updated_item.id, 1, updated_item);
+          res.write(JSON.stringify(updated_item));
+          res.end();
+        });
         break;
       case "GET":
-        res.writeHead(200, {"Content-Type" : "application/json"});
-        res.write(JSON.stringify(shopping[get_id(url) - 1]));
+        get_item(req, res);
+        break;
+      case "DELETE":
+        shopping.splice(get_id(req.url), 1);
+        console.log(shopping);
+        res.writeHead(200);
         res.end();
     }
     return;
@@ -72,7 +102,7 @@ var post_handler = function(request, callback) {
   //  console.log('post handler');
   var _CONTENT = '';
 
-  if(request.method == 'POST') {
+  if(request.method == 'POST' || request.method == 'PUT') {
     request.addListener('data', function(chunk) {
       //  console.log("Chunking");
       _CONTENT += chunk;

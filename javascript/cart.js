@@ -109,6 +109,27 @@ $(function() {
 
 
     });
+
+    window.ProductCount = Backbone.View.extend({
+
+      constructor: funcion ProductCount() {
+        Backbone.View.prototype.constructor.apply(this, arguments);
+      },
+
+      template: _.template($("product-count-template").html()),
+
+      initalize: function() {
+        var view = this;
+        this.collection.bind('change', function(model, collection) {
+          view.render();
+        });
+      },
+
+      render: function() {
+        
+      }
+
+    });
 		$(function () {
 		window.Products = new ProductList();
 		
