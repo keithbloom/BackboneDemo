@@ -24,16 +24,27 @@ $(function() {
 			
 			constructor: function ProductList() {
 				Backbone.Collection.prototype.constructor.apply(this, arguments);
-			}
+			},
+
+      tobuy: function () {
+          return this.filter(function (item) { return item.get('state') === 'To buy'; });
+      }
+
 			
 		});
 	
 
 		
 		window.ProductView = Backbone.View.extend({
-			
+      getItem: function (event) {
+        var parent = event.target.parentNode.parentNode,
+				item = this.collection.getByCid(parent.getAttribute('data-id'));
+        return item;
+      },
+
 			events : {
-				'click .bought' : 'onbought'
+				'click .bought' : 'onbought',
+        'click .delete' : 'ondelete'
 			},
 
 			template: _.template($("#product-template").html()),
@@ -44,9 +55,12 @@ $(function() {
 			
 			initialize: function() {
 				var view = this;
-				this.collection.bind('add', function(product, collection){
-					view.add(product);
+				this.collection.bind('add', function(item, collection){
+					view.add(item);
 				});
+        this.collection.bind('remove', function(item, collection) {
+          view.remove(item);
+        });
 			},
 			
 			render: function() {
@@ -66,9 +80,14 @@ $(function() {
 				return this;
 			},
 
+      remove: function (item) {
+        this.$('[data-id="' + item.cid + '"]').remove();
+        return this;
+      },
+
 			onbought: function(event){
 				var parent = event.target.parentNode.parentNode,
-					product = this.collection.getByCid(parent.getAttribute('data-id'));
+				product = this.collection.getByCid(parent.getAttribute('data-id'));
 				console.log(parent.getAttribute('data-id'));
 				if(product) {
 					product.save({state : 'Done'});
@@ -76,7 +95,17 @@ $(function() {
 				}
 				event.preventDefault();
 
-			}
+			},
+
+      ondelete: function (event) {
+        var product = this.getItem(event);
+
+        if(product) {
+          product.destroy();
+          this.collection.remove(product);
+        } 
+        event.preventDefault();
+      }
 			
 			
 		});
@@ -112,6 +141,8 @@ $(function() {
 
     window.ProductCount = Backbone.View.extend({
 
+
+
       constructor: function ProductCount() {
         Backbone.View.prototype.constructor.apply(this, arguments);
       },
@@ -127,12 +158,14 @@ $(function() {
       },
 
       render: function() {
-        console.log(this.collection.length); 
+        console.log(this.collection.tobuy()); 
         this.el.children().remove();
         this.el.append(this.template({
-          total: this.collection.length
+          total: this.collection.length,
+          buying: this.collection.tobuy().length
         })); 
       }
+
 
     });
 		$(function () {

@@ -13,7 +13,7 @@ ul#product-list li {
   margin: 0;
 }
 
-#main {
+#main, #product-count, #shopping-list {
 	border: 2px solid #aaa;
 	padding: 5px;
 }
@@ -40,3 +40,5 @@ form#shopping-form p{
 	margin-top: 10px;
 	padding-top: 5px;
 }
+
+

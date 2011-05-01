@@ -44,18 +44,23 @@
 				</div>
 			</form>
 		</div>
-    <div class="grid_2" id="product-count">
-    </div>
+    <div class="grid_2">&nbsp;</div>
 		<div class="clear"></div>
 
-		<div class="grid_2">&nbsp;</div>
-		<div class="grid_8">
+    <div class="grid_2">&nbsp;</div>
+    <div class="grid_8" id="product-count"></div>  
+    <div class="grid_2">&nbsp;</div>
+    <div class="clear"></div>
+
+    <div class="grid_2">&nbsp;</div>
+		<div class="grid_8" id="shopping-list">
 			<h2>Go to the shops, and buy:</h2>
 			<ul id="product-list" class="content"></ul>
 		</div>
 		<div class="grid_2">&nbsp;</div>
 		<div class="clear"></div>
-    
+
+
 	</div>
 
 	<script type="text/template" id="product-template">
@@ -63,14 +68,20 @@
 		<div class="prod-detail">
       <span class="prod-name grid_4"><%= title %></span>
       <span class="prod-state grid_1"><%= state %></span>
-		  <button type="button" class="bought grid_2">Bought it</button>
+      <button type="button" class="bought grid_1">Bought it</button>
+      <button type="button" class="delete grid_1">Delete</button>
 		</div>
 		<div class="clear"></div>
  	</li>
   </script>
 
   <script type="text/template" id="product-count-template">
-      <h3>I have <%= total %> items to buy</h3>
+    <table>
+      <tr>
+        <td>Total items: <%= total %></td>
+        <td>To buy: <%= buying %></td>
+      </tr>
+    </table>
   </script>
 
 </body>
