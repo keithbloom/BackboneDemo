@@ -112,40 +112,49 @@ $(function() {
 
     window.ProductCount = Backbone.View.extend({
 
-      constructor: funcion ProductCount() {
+      constructor: function ProductCount() {
         Backbone.View.prototype.constructor.apply(this, arguments);
       },
 
-      template: _.template($("product-count-template").html()),
+      template: _.template($("#product-count-template").html()),
 
-      initalize: function() {
+      initialize: function() {
         var view = this;
         this.collection.bind('change', function(model, collection) {
+          console.log("Product count");
           view.render();
         });
       },
 
       render: function() {
-        
+        console.log(this.collection.length); 
+        this.el.children().remove();
+        this.el.append(this.template({
+          total: this.collection.length
+        })); 
       }
 
     });
 		$(function () {
-		window.Products = new ProductList();
+		  window.Products = new ProductList();
 		
-		var list = new ProductView({
-			el: $("#product-list"),
-			collection: Products
-		});
-		
-		list.render();
+		  var list = new ProductView({
+			  el: $("#product-list"),
+			  collection: Products
+		  });
+		  var count = new ProductCount({
+        el: $("#product-count"),
+        collection: Products
+      });
+		  list.render();
+      count.render();
 
-    var form = new ProductForm({
-      el: document.getElementById("shopping-form")
-    });
+      var form = new ProductForm({
+        el: document.getElementById("shopping-form")
+      });
 
-    form.bind('create', function (product) {
-      window.Products.add(product);
-    });
+      form.bind('create', function (product) {
+        window.Products.add(product);
+      });
     });
 	});
