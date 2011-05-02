@@ -1,19 +1,19 @@
 $(function() {
     window.Item = Backbone.Model.extend({
 
-    constructor: function Item() {
-        Backbone.Model.prototype.constructor.apply(this, arguments);
+        constructor: function Item() {
+            Backbone.Model.prototype.constructor.apply(this, arguments);
 
-        if(!this.collection) {
-            this.collection = Products;
+            if(!this.collection) {
+                this.collection = Products;
+            }
+        },
+
+        defaults: {
+            title: "empty item..",
+            state: "To buy"
         }
-    },
 
-    defaults: {
-        title: "empty item..",
-        price: 0,
-        state: "To buy"
-    }
     });
 
     window.ShoppingList = Backbone.Collection.extend({
@@ -30,16 +30,5 @@ $(function() {
             return this.filter(function (item) { return item.get('state') === 'To buy'; });
         }
     });
-	
-
-		
-
-
-
-
-
-    // Set it all up
-
-
 
 });

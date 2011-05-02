@@ -1,5 +1,6 @@
 $(function () {
 window.ProductView = Backbone.View.extend({
+
         getItem: function (event) {
             var parent = event.target.parentNode.parentNode,
             item = this.collection.getByCid(parent.getAttribute('data-id'));
@@ -18,13 +19,13 @@ window.ProductView = Backbone.View.extend({
         },
 
         initialize: function() {
-        var view = this;
-        this.collection.bind('add', function(item, collection){
-            view.add(item);
-        });
-        this.collection.bind('remove', function(item, collection) {
-            view.remove(item);
-        });
+            var view = this;
+            this.collection.bind('add', function(item, collection){
+                view.add(item);
+            });
+            this.collection.bind('remove', function(item, collection) {
+                view.remove(item);
+            });
         },
 
         render: function() {
@@ -39,7 +40,7 @@ window.ProductView = Backbone.View.extend({
         this.el.append(this.template({
             title: product.get("title"),
             Id: product.cid,
-        state: product.get("state")
+            state: product.get("state")
             }));
         return this;
         },
