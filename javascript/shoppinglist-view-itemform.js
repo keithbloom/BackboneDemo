@@ -10,15 +10,15 @@ $(function () {
         },
 
         onsubmit: function(event) {
-            var task = new window.Item,
+            var item = new window.Item,
                 input = this.$('input');
 
-            task.save({
+            item.save({
               title: input.val()
             });
 
             input.val('');
-            this.trigger('create', task, this);
+            this.trigger('create', item, this);
             if (event) {
               event.preventDefault();
             }

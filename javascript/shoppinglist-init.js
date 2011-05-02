@@ -1,6 +1,6 @@
 
 $(function() {
-window.Products = new ShoppingList();
+    window.Products = new ShoppingList();
 
     var list = new ProductView({
       el: $("#product-list"),
@@ -12,8 +12,13 @@ window.Products = new ShoppingList();
         collection: Products
     });
 
-    list.render();
-    count.render();
+    window.Products.fetch({
+        success: function(collection, response){
+            console.log(collection, response);
+            list.render();
+            count.render();
+        }
+    });
 
     var form = new ItemForm({
         el: document.getElementById("shopping-form")
@@ -22,4 +27,5 @@ window.Products = new ShoppingList();
     form.bind('create', function (product) {
         window.Products.add(product);
     });
+
 });
