@@ -10,6 +10,7 @@ $(function () {
         },
 
         onsubmit: function(event) {
+                
             var item = new window.Item,
                 input = this.$('input');
 
@@ -19,7 +20,7 @@ $(function () {
 
             input.val('');
 
-            // this.trigger('create', item, this);
+            this.trigger('create', item, this);
             if (event) {
               event.preventDefault();
             }

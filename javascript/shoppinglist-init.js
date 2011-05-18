@@ -25,6 +25,7 @@ $(function() {
     });
 
     form.bind('create', function (product) {
+        console.log("Added by the form.")
         window.Products.add(product);
     });
 

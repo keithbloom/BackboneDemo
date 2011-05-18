@@ -21,6 +21,7 @@ window.ProductView = Backbone.View.extend({
         initialize: function() {
             var view = this;
             this.collection.bind('add', function(item, collection){
+                console.log("Adding an item");
                 view.add(item);
             });
             this.collection.bind('remove', function(item, collection) {
