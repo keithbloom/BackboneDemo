@@ -1,7 +1,6 @@
 $(function () {
 window.ProductView = Backbone.View.extend({
 
-
 	// Cache the template for this item so we don't have to grab it from the DOM every time
         template: _.template($("#product-template").html()),
 
@@ -20,7 +19,6 @@ window.ProductView = Backbone.View.extend({
                 view.remove(item);
             });
         },
-
 
         render: function() {
             $("#product-list").children().remove();

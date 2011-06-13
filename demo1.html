@@ -9,36 +9,59 @@
   <meta name="author" content="">
 
   <!-- CSS: implied media="all" -->
-  <link rel="stylesheet" href="css/reset.css" />
-  <link rel="stylesheet" href="css/text.css" />
-  <link rel="stylesheet" href="css/960.css" />
+  <link rel="stylesheet" href="css/reset.css"/>
+  <link rel="stylesheet" href="css/text.css"/>
+  <link rel="stylesheet" href="css/960.css"/>
 
 
-  <link rel="stylesheet" href="css/cart.css" />
-  <script src="javascript/jquery.min.js"></script> 
+  <link rel="stylesheet" href="css/cart.css"/>
+  <script src="javascript/jquery.min.js"></script>
   <script src="javascript/underscore.js"></script>
   <script src="javascript/backbone.js"></script>
   <script src="javascript/json2.js"></script>
 
-  <script src="javascript/shoppinglist-model-collection.js"></script>
-
-  <script>
+  <script language="javascript">
     $(function() {
-        window.Products = new ShoppingList();
+      window.ShoppingItem = Backbone.Model.extend({
+
+        constructor: function () {
+          if (!this.collection) {
+            this.collection = Products;
+          }
+        },
+
+        defaults: {
+          title: "Empty item..",
+          state: "To buy"
+        }
+
+      });
+
+      window.ShoppingList = Backbone.Collection.extend({
+
+        url: 'list/',
+
+        model: ShoppingItem
+
+      });
+
+      window.Products = new ShoppingList();
     });
+
+
   </script>
 
 </head>
 
 <body>
 
-	<div class="container_12">
-		<div class="grid_2">&nbsp;</div>
-		<div class="grid_8">
-			<h1>Shopping list : Demo 1</h1>
-        </div>
-		<div class="grid_2">&nbsp;</div>
-	</div>
+<div class="container_12">
+  <div class="grid_2">&nbsp;</div>
+  <div class="grid_8">
+    <h1>Shopping list : Demo 1</h1>
+  </div>
+  <div class="grid_2">&nbsp;</div>
+</div>
 
 </body>
 </html>
